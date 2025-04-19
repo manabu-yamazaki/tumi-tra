@@ -5,16 +5,18 @@ interface AsyncOperationState {
   error: Error | null;
 }
 
-export function useAsyncOperation<T extends (...args: unknown[]) => Promise<unknown>>(
-  operation: T
-): [T, AsyncOperationState] {
+type AsyncFunction<TArgs extends unknown[], TReturn> = (...args: TArgs) => Promise<TReturn>;
+
+export function useAsyncOperation<TArgs extends unknown[], TReturn>(
+  operation: AsyncFunction<TArgs, TReturn>
+): [AsyncFunction<TArgs, TReturn>, AsyncOperationState] {
   const [state, setState] = useState<AsyncOperationState>({
     loading: false,
     error: null,
   });
 
   const wrappedOperation = useCallback(
-    async (...args: Parameters<T>) => {
+    async (...args: TArgs) => {
       setState({ loading: true, error: null });
       try {
         const result = await operation(...args);
@@ -26,7 +28,7 @@ export function useAsyncOperation<T extends (...args: unknown[]) => Promise<unkn
       }
     },
     [operation]
-  ) as T;
+  );
 
   return [wrappedOperation, state];
 } 

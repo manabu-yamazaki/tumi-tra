@@ -28,7 +28,11 @@ export function HabitTracker() {
   const handleAddHabit = async () => {
     if (!newHabitName.trim()) return;
     try {
-      await createHabit(newHabitName);
+      await createHabit({
+        name: newHabitName,
+        frequency: { type: 'daily' },
+        startDate: new Date(),
+      });
       setNewHabitName('');
     } catch (error) {
       console.error('習慣の追加に失敗しました:', error);
