@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: '習慣の編集',
 };
 
-export default function HabitEditPage({
+export default async function HabitEditPage({
   params,
 }: Props) {
   return <HabitForm habitId={params.id === 'new' ? undefined : params.id} />;
