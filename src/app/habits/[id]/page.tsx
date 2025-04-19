@@ -1,11 +1,8 @@
 import { HabitForm } from '@/components/HabitForm';
 
-type Props = {
-  params: { id: string }
-}
+export type paramsType = Promise<{ id: string }>;
 
-export default function HabitEditPage({
-  params,
-}: Props) {
-  return <HabitForm habitId={params.id === 'new' ? undefined : params.id} />;
+export default async function HabitEditPage(props: { params: paramsType }) {
+  const { id } = await props.params;
+  return <HabitForm habitId={id === 'new' ? undefined : id} />;
 } 
