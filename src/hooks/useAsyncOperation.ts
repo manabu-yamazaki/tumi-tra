@@ -5,7 +5,7 @@ interface AsyncOperationState {
   error: Error | null;
 }
 
-export function useAsyncOperation<T extends (...args: any[]) => Promise<any>>(
+export function useAsyncOperation<T extends (...args: unknown[]) => Promise<unknown>>(
   operation: T
 ): [T, AsyncOperationState] {
   const [state, setState] = useState<AsyncOperationState>({

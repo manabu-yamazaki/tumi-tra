@@ -143,7 +143,7 @@ function calculateStreak(records: HabitRecord[]): number {
     .sort((a, b) => b.date.getTime() - a.date.getTime());
 
   let streak = 0;
-  let currentDate = new Date();
+  const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
 
   for (const record of sortedRecords) {
